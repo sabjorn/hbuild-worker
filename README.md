@@ -34,18 +34,3 @@ hda_node = subnet.createDigitalAsset(name="my hda", description="example HDA", c
 hda_def =  hda_node.type().definition()
 hda_def.save("my_hda.hda")
 ```
-
-## Caveates
-When running `python3` as an interactive interpreter, the `PYTHONSTARTUP` ENV is set to `/hou_setup.py` which provides the import logic for `hou`. If instead you were to run:
-
-```
-python3 some_script.py
-```
-
-you would need to make sure the top of your script begins with:
-
-```
-import hou_setup
-import hou
-```
-
