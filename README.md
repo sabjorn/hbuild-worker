@@ -3,6 +3,7 @@ A Docker image based on [aaronsmithtv/hbuild](github.com/aaronsmithtv/Houdini-Do
 
 The goal of this project is to make it easier to integrate  with CI/CD build pipeliens for programatically generating Houdini assets. 
 
+The image is available on Docker Hub: [sabjorn/hbuild-worker](https://hub.docker.com/r/sabjorn/hbuild-worker)
 
 ## Example Usage
 The following command will launch all the necessary services within the Docker container and jump the user into a python3 session:
