@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  build-and-attach:
+  build-and-push:
     runs-on: ubuntu-latest
 
     env:
