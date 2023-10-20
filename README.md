@@ -35,3 +35,18 @@ hda_node = subnet.createDigitalAsset(name="my hda", description="example HDA", c
 hda_def =  hda_node.type().definition()
 hda_def.save("my_hda.hda")
 ```
+
+## Known Issues
+For reasons currently unknown, the `hserver` session can start properly in the container, and the login action can succeed, but running:
+
+```
+python -c "import hou"
+```
+
+can still fail. This will be expressed with the error message:
+
+```
+server failed to properly initialize. restart the container and try again
+```
+
+Restarting the container does seem to work but sometimes it takes a few tries.
