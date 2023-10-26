@@ -22,7 +22,7 @@ get_and_relinquish_users() {
 }
 
 echo "starting hserver -- this can take a moment"
-hserver --render-only -C -S https://www.sidefx.com/license/sesinetd --clientid $SIDEFX_CLIENT --clientsecret $SIDEFX_SECRET > /dev/null 2>&1
+hserver -Q --render-only -S https://www.sidefx.com/license/sesinetd --clientid $SIDEFX_CLIENT --clientsecret $SIDEFX_SECRET > /dev/null 2>&1
 sesictrl login --email $HOUDINI_USERNAME --password $HOUDINI_PASSWORD > /dev/null 2>&1
 
 if [[ ! -z "${FORCE_LICENSE_RELINQUISH}" ]]; then
