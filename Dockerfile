@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     python3.9-dev \
     python3-distutils \
     python3-pip \
+    jq \
  && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/bin/python3 /usr/bin/python
 

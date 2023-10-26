@@ -37,16 +37,25 @@ hda_def.save("my_hda.hda")
 ```
 
 ## Known Issues
-For reasons currently unknown, the `hserver` session can start properly in the container, and the login action can succeed, but running:
+When there are no licenses available for the container, a license must be made available. 
+This usually happens when only one license is available and a user open Houdini on their machine.
+
+Because of a bug in `sesictrl` -- individual licenses aren't able to be returned so instead all user licenses will be returned. All licenses can be returned by force on boot of the container by setting ENV: `FORCE_LICENSE_RELINQUISH`.
+
+**WARNING** this might cause Houdini to require restart on any system using the license.
+
+example usage:
 
 ```
-python -c "import hou"
+docker run -it --rm \
+    -e SIDEFX_CLIENT=<client id> \
+    -e SIDEFX_SECRET=<client secret> \
+    -e HOUDINI_USERNAME=<username or email> \
+    -e HOUDINI_PASSWORD=<houdini password> \
+    -e FORCE_LICENSE_RELINQUISH=1 \
+    -v <local file directory>:/work
+    sabjorn/hbuild-worker python3
 ```
 
-can still fail. This will be expressed with the error message:
-
-```
-server failed to properly initialize. restart the container and try again
-```
-
-Restarting the container does seem to work but sometimes it takes a few tries.
+### Alternative Solution
+Get a license for exclusive use with your build system.
