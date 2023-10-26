@@ -4,15 +4,10 @@ export HOUDINI_SCRIPT_LICENSE="hbatch -R"
 export HOUDINI_DISABLE_JEMALLOCTEST=1
 
 echo "starting hserver -- this can take a moment"
-hserver > /dev/null 2>&1
-hserver -C -S https://www.sidefx.com/license/sesinetd --clientid $SIDEFX_CLIENT --clientsecret $SIDEFX_SECRET > /dev/null 2>&1
-sleep 1 # attempt to give the server time to settle
+hserver -Q --render-only -S https://www.sidefx.com/license/sesinetd --clientid $SIDEFX_CLIENT --clientsecret $SIDEFX_SECRET > /dev/null 2>&1
+sesictrl login --email $HOUDINI_USERNAME --password $HOUDINI_PASSWORD > /dev/null 2>&1
 
-echo "logging in" # "succeed" but import hou can still fail :(
-sesictrl login --email $HOUDINI_USERNAME --password $HOUDINI_PASSWORD
-sleep 1 # attempt to give the server time to settle
-
-# test if works
+# test if hou can be imported -- if fails, there is an issue
 python -c "import hou" > /dev/null 2>&1
 exit_code=$?
 
