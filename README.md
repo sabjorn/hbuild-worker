@@ -36,5 +36,3 @@ hda_def =  hda_node.type().definition()
 hda_def.save("my_hda.hda")
 ```
 
-## Known Issues
-When there are no licenses available for the task, a license must be made available. This can be forced at boot of the container by setting ENV: `FORCE_LICENSE_RELINQUISH`.
