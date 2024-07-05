@@ -1,4 +1,4 @@
-FROM aaronsmithtv/hbuild:19.5.716-base
+FROM aaronsmithtv/hbuild:20.0.751-base
 
 # user defined at runtime of container
 ENV HOUDINI_USERNAME=""
