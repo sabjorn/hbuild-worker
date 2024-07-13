@@ -1,10 +1,10 @@
 FROM aaronsmithtv/hbuild:19.5.716-base
 
-# user defined at runtime of container
 ENV HOUDINI_USERNAME=""
 ENV HOUDINI_PASSWORD=""
 ENV SIDEFX_CLIENT=""
 ENV SIDEFX_SECRET=""
+ENV HOUDINI_LICENSE_MODE=""
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     python3.9-dev \

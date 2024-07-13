@@ -36,26 +36,14 @@ hda_def =  hda_node.type().definition()
 hda_def.save("my_hda.hda")
 ```
 
-## Known Issues
-When there are no licenses available for the container, a license must be made available. 
-This usually happens when only one license is available and a user open Houdini on their machine.
+## Setting License Type
+The `HOUDINI_LICENSE_MODE` env sets the type of license used. The default is: 'commercial'
 
-Because of a bug in `sesictrl` -- individual licenses aren't able to be returned so instead all user licenses will be returned. All licenses can be returned by force on boot of the container by setting ENV: `FORCE_LICENSE_RELINQUISH`.
+Options:
+* `HOUDINI_LICENSE_MODE=commercial`
+* `HOUDINI_LICENSE_MODE=indie`
 
-**WARNING** this might cause Houdini to require restart on any system using the license.
+The system will attempt to get the licesne specificed -- however, if your account does nto have a license of that type, then the import of `hou` will fail.
 
-example usage:
-
-```
-docker run -it --rm \
-    -e SIDEFX_CLIENT=<client id> \
-    -e SIDEFX_SECRET=<client secret> \
-    -e HOUDINI_USERNAME=<username or email> \
-    -e HOUDINI_PASSWORD=<houdini password> \
-    -e FORCE_LICENSE_RELINQUISH=1 \
-    -v <local file directory>:/work
-    sabjorn/hbuild-worker python3
-```
-
-### Alternative Solution
-Get a license for exclusive use with your build system.
+## Debugging
+Set `VERBOSE=true` to have the houdini applications in the container print to screen when the container starts.
