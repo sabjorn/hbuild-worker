@@ -3,7 +3,6 @@
 export PYTHONPATH=/opt/houdini/build/houdini/python3.9libs
 export HOUDINI_SCRIPT_LICENSE="hbatch -R"
 export HOUDINI_DISABLE_JEMALLOCTEST=1
-export HOUDINI_HYTHON_LIC_OPT="--check-licenses=Houdini-Master --skip-licenses=Houdini-Escape,Houdini-Engine"
 
 if [ "$VERBOSE" = "true" ]; then
   echo "VERBOSE mode set"
@@ -22,17 +21,18 @@ fi
 case "$HOUDINI_LICENSE_MODE" in
   "commercial")
     echo "using 'commercial' license"
+    export HOUDINI_HYTHON_LIC_OPT="--check-licenses=Houdini-Master --skip-licenses=Houdini-Escape,Houdini-Engine"
     ;;
   "education")
     echo "using 'education' license"
-    export HOUDINI_HYTHON_LIC_OPT="$HOUDINI_HYTHON_LIC_OPT --skip-license-modes=commercial,apprentice,indie"
+    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,apprentice,indie"
     ;;
   "indie")
     echo "using 'indie' license"
-    export HOUDINI_HYTHON_LIC_OPT="$HOUDINI_HYTHON_LIC_OPT --skip-license-modes=commercial,education,apprentice"
+    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,education,apprentice"
     ;;
   "apprentice")
-    export HOUDINI_HYTHON_LIC_OPT="$HOUDINI_HYTHON_LIC_OPT --skip-license-modes=commercial,education,indie"
+    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,education,indie"
     ;;
   *)
     echo "Invalid HOUDINI_LICENSE_MODE: $HOUDINI_LICENSE_MODE"
