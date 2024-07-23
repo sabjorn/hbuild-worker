@@ -41,9 +41,7 @@ The `HOUDINI_LICENSE_MODE` env sets the type of license used. The default is: 'c
 
 Options:
 * `HOUDINI_LICENSE_MODE=commercial`
-* `HOUDINI_LICENSE_MODE=education`
 * `HOUDINI_LICENSE_MODE=indie`
-* `HOUDINI_LICENSE_MODE=apprentice`
 
 The system will attempt to get the licesne specificed -- however, if your account does nto have a license of that type, then the import of `hou` will fail.
 
