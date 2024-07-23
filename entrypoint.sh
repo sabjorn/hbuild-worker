@@ -18,25 +18,19 @@ else
   HOUDINI_LICENSE_MODE="${HOUDINI_LICENSE_MODE,,}"  # Convert to lowercase
 fi
 
+
 case "$HOUDINI_LICENSE_MODE" in
   "commercial")
     echo "using 'commercial' license"
-    export HOUDINI_HYTHON_LIC_OPT="--check-licenses=Houdini-Master --skip-licenses=Houdini-Escape,Houdini-Engine"
-    ;;
-  "education")
-    echo "using 'education' license"
-    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,apprentice,indie"
+    export HOUDINI_HYTHON_LIC_OPT="--check-licenses=Houdini-Master --skip-licenses=Houdini-Escape,Houdini-Engine --skip-license-modes=education,apprentice,indie"
     ;;
   "indie")
     echo "using 'indie' license"
-    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,education,apprentice"
-    ;;
-  "apprentice")
-    export HOUDINI_HYTHON_LIC_OPT="--skip-license-modes=commercial,education,indie"
+    export HOUDINI_HYTHON_LIC_OPT="--check-licenses=Houdini-Master --skip-licenses=Houdini-Escape,Houdini-Engine --skip-license-modes=education,apprentice,commercial"
     ;;
   *)
     echo "Invalid HOUDINI_LICENSE_MODE: $HOUDINI_LICENSE_MODE"
-    echo "Try 'commercial', 'education', 'indie', or 'apprentice'"
+    echo "Try 'commercial' or 'indie'"
     exit 1
     ;;
 esac
@@ -52,9 +46,9 @@ check_houdini_license_available() {
     return
   fi
 
-  # Use jq to sum the 'available' fields for licenses where "product" starts with "Houdini-Engine"
+  # Use jq to sum the 'available' fields for licenses where "product" starts with "Houdini-Master"
   local total_available
-  total_available=$(echo "$json_output" | jq '[.licenses[] | select(.product | startswith("Houdini-Engine"))] | map(.available) | add // 0')
+  total_available=$(echo "$json_output" | jq '[.licenses[] | select(.product | startswith("Houdini-Master"))] | map(.available) | add // 0')
 
   # Output the total number of available licenses
   echo "$total_available"
@@ -64,8 +58,8 @@ get_and_relinquish_users() {
   # Run the CLI command and capture the output
   local output=$(sesictrl print-license --format json)
 
-  # Parse the JSON to get 'users->id' where 'product' starts with 'Houdini-Engine'
-  local user_ids=$(echo "$output" | jq -r '.licenses[] | select(.product | startswith("Houdini-Engine")) | .users[].id')
+  # Parse the JSON to get 'users->id' where 'product' starts with 'Houdini-Master'
+  local user_ids=$(echo "$output" | jq -r '.licenses[] | select(.product | startswith("Houdini-Master")) | .users[].id')
 
   # Check if any IDs were found
   if [[ -z "$user_ids" ]]; then
@@ -77,18 +71,17 @@ get_and_relinquish_users() {
     sesictrl relinquish "$id"
   done
 }
-
 echo "starting hserver -- this can take a moment"
 eval "hserver -Q --render-only -S https://www.sidefx.com/license/sesinetd --clientid \$SIDEFX_CLIENT --clientsecret \$SIDEFX_SECRET $REDIRECT"
 eval "sesictrl login --email \$HOUDINI_USERNAME --password \$HOUDINI_PASSWORD $REDIRECT"
 
 available_licenses=$(check_houdini_license_available)
 if [ "$available_licenses" -eq 0 ]; then
-  echo "No Houdini Engine licenses available. Attempting to force removal of license(s)."
+  echo "No Houdini-Master licenses available. Attempting to force removal of license(s)."
   get_and_relinquish_users
 fi
 # test if hou can be imported -- if fails, there is an issue
-eval "python -c 'import hou' $REDIRECT"
+eval "python -c 'import hou; print(hou.licenseCategory())' $REDIRECT"
 exit_code=$?
 
 # Check if the exit code is non-zero
