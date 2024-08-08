@@ -72,8 +72,10 @@ get_and_relinquish_users() {
   done
 }
 echo "starting hserver -- this can take a moment"
-eval "hserver -Q --render-only -S https://www.sidefx.com/license/sesinetd --clientid \$SIDEFX_CLIENT --clientsecret \$SIDEFX_SECRET $REDIRECT"
-eval "sesictrl login --email \$HOUDINI_USERNAME --password \$HOUDINI_PASSWORD $REDIRECT"
+hserver --clientid $SIDEFX_CLIENT --clientsecret $SIDEFX_SECRET --host "https://www.sidefx.com/license/sesinetd"
+#sesictrl login -h 
+#eval "hserver -Q --render-only -S https://www.sidefx.com/license/sesinetd --clientid \$SIDEFX_CLIENT --clientsecret \$SIDEFX_SECRET $REDIRECT"
+eval "sesictrl login $REDIRECT"
 
 available_licenses=$(check_houdini_license_available)
 if [ "$available_licenses" -eq 0 ]; then
