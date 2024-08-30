@@ -5,6 +5,21 @@ The goal of this project is to make it easier to integrate  with CI/CD build pip
 
 The image is available on Docker Hub: [sabjorn/hbuild-worker](https://hub.docker.com/r/sabjorn/hbuild-worker)
 
+## SideFX Application Configuration
+In order to use this container -- a SideFx application must be create in order to get the `SIDEFX_CLIENT` and `SIDEFX_SECRET`.
+
+### Steps
+1. Navigate to https://www.sidefx.com/oauth2/applications/
+2. Click **Register a new application**
+3. Set
+  **Authorization grant type**: authorization-code
+  **Redirect Uris**: https://www.sidefx.com/
+4. Save
+
+Then the **Client id** and **Client secret** can be used.
+
+Note: DO NOT SHARE **Client secret**
+
 ## Example Usage
 The following command will launch all the necessary services within the Docker container and jump the user into a python3 session:
 ```
