@@ -1,4 +1,4 @@
-FROM aaronsmithtv/hbuild:19.5.716-base
+FROM aaronsmithtv/hbuild:20.5.332-base
 
 ENV HOUDINI_USERNAME=""
 ENV HOUDINI_PASSWORD=""
@@ -7,7 +7,7 @@ ENV SIDEFX_SECRET=""
 ENV HOUDINI_LICENSE_MODE=""
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    python3.9-dev \
+    python3.11-dev \
     python3-distutils \
     python3-pip \
     jq \

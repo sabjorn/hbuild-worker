@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PYTHONPATH=/opt/houdini/build/houdini/python3.9libs
+export PYTHONPATH=/opt/houdini/build/houdini/python3.11libs
 export HOUDINI_SCRIPT_LICENSE="hbatch -R"
 export HOUDINI_DISABLE_JEMALLOCTEST=1
 
