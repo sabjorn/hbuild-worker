@@ -17,6 +17,9 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# sesictrl in >= v20 is broken -- borrow an older working version
+COPY --from=aaronsmithtv/hbuild:19.5.716-base  /opt/houdini/build/houdini/sbin/sesictrl /opt/houdini/build/houdini/sbin/sesictrl
+
 RUN mkdir /work
 WORKDIR /work
 ENTRYPOINT ["/entrypoint.sh"]
