@@ -1,4 +1,5 @@
-FROM aaronsmithtv/hbuild:20.5.445-base
+FROM aaronsmithtv/hbuild:21.0.440-base
+
 
 ENV HOUDINI_USERNAME=""
 ENV HOUDINI_PASSWORD=""
