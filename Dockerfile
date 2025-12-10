@@ -1,4 +1,4 @@
-FROM aaronsmithtv/hbuild:21.0.440-base
+FROM aaronsmithtv/hbuild:21.0.559-base
 
 
 ENV HOUDINI_USERNAME=""
@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     python3-distutils \
     python3-pip \
     jq \
+    liblzma-dev \
+    xz-utils \
  && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
