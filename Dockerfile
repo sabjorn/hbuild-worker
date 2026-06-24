@@ -1,4 +1,4 @@
-FROM aaronsmithtv/hbuild:21.0.559-base
+FROM aaronsmithtv/hbuild:20.5.684-base
 
 
 ENV HOUDINI_USERNAME=""
